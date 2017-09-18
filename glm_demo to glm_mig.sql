@@ -77,6 +77,25 @@ HAVING COUNT(1)=1
 ORDER BY 
 	TABLE_NAME,
 	INDEX_NAME;
+	
+SELECT
+	trigger_schema, 
+	EVENT_OBJECT_TABLE,
+	ACTION_STATEMENT,
+	COUNT(1) rowcount
+FROM information_schema.`TRIGGERS`
+WHERE
+    (
+        (trigger_schema='glm_demo') OR
+        (trigger_schema='glm_mig')
+    )
+GROUP BY
+	EVENT_OBJECT_TABLE,
+	ACTION_STATEMENT
+HAVING COUNT(1)=1
+ORDER BY 
+	EVENT_OBJECT_TABLE,
+	ACTION_STATEMENT;
 
 
 SELECT * from glm_demo.setting
